@@ -21,18 +21,27 @@ formReminder.onsubmit = (event) => {
     })
     const tasksJson = JSON.stringify(tasks);
     localStorage.setItem('tasks', tasksJson);
-    console.log("formReminder", formReminder);
     formReminder.reset();
 }
 
 function displayTasks() {
-    const tasks = JSON.parse(localStorage.getItem('Tasks')) || [];
-    const tr = `
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const rows = [];
+
+    for (let index = 0; index < tasks.length; index++) {
+        const task = tasks[index];
+
+     const tr = `
         <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+            <th scope="row">${index + 1}</th>
+            <td>${task.taskName}</td>
+            <td>${task.taskType}</td>
+            <td>@${task.taskDate}</td>
         </tr>
-    `
+        `   ; 
+        rows.push(tr);
+    }
+    console.log(rows);
+
 }
+displayTasks();
