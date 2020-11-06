@@ -22,6 +22,7 @@ formReminder.onsubmit = (event) => {
     const tasksJson = JSON.stringify(tasks);
     localStorage.setItem('tasks', tasksJson);
     formReminder.reset();
+    displayTasks();
 }
 
 function displayTasks() {
@@ -41,7 +42,7 @@ function displayTasks() {
         `   ; 
         rows.push(tr);
     }
-    console.log(rows);
-
+    taskTable.innerHTML = rows.join('');
+    console.log("displayTasks ->  rows.join('')",  rows.join(''))
 }
-displayTasks();
+
