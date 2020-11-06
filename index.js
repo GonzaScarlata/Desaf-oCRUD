@@ -3,6 +3,8 @@ const taskNameInput = document.getElementById('taskName');
 const taskTypeInput = document.getElementById('taskType');
 const taskDateInput = document.getElementById('taskDate');
 const tasksList = document.getElementById('taskList');
+const taskTable = document.getElementById('taskTable');
+console.log("taskTable", taskTable)
 
 formReminder.onsubmit = (event) => {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -21,4 +23,16 @@ formReminder.onsubmit = (event) => {
     localStorage.setItem('tasks', tasksJson);
     console.log("formReminder", formReminder);
     formReminder.reset();
+}
+
+function displayTasks() {
+    const tasks = JSON.parse(localStorage.getItem('Tasks')) || [];
+    const tr = `
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+    `
 }
