@@ -3,10 +3,9 @@ const taskNameInput = document.getElementById('taskName');
 const taskTypeInput = document.getElementById('taskType');
 const taskDateInput = document.getElementById('taskDate');
 const tasksList = document.getElementById('taskList');
-const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-console.log("tasks", tasks)
 
 formReminder.onsubmit = (event) => {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     event.preventDefault();
     const taskName = taskNameInput.value;
     const taskType = taskTypeInput.value;
