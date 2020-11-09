@@ -30,10 +30,10 @@
                 <input type="text" id="taskType" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="description">
+                <label for="taskDescription">
                     Descripción
                 </label>
-                <input type="text" id="description" class="form-control" required>
+                <textarea name="textarea" rows="5" id="taskDescription" class="w-100 form-control">Describa la tarea a realizar</textarea>
             </div>
             <div class="form-group">
                 <label for="taskDate">
@@ -52,6 +52,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Tarea</th>
+                    <th scope="col">Tipo de tarea</th>
                     <th scope="col">Descripción</th>
                     <th scope="col">Fecha</th>
                 </tr>

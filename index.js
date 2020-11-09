@@ -1,6 +1,7 @@
 const formReminder = document.getElementById('formReminder');
 const taskNameInput = document.getElementById('taskName');
 const taskTypeInput = document.getElementById('taskType');
+const taskDescriptionInput= document.getElementById('taskDescription');
 const taskDateInput = document.getElementById('taskDate');
 const tasksList = document.getElementById('taskList');
 const taskTable = document.getElementById('taskTable');
@@ -12,12 +13,14 @@ formReminder.onsubmit = (event) => {
     const taskName = taskNameInput.value;
     const taskType = taskTypeInput.value;
     const taskDate = taskDateInput.value;
+    const taskDescription = taskDescriptionInput.value;
 
 
     tasks.push({
         taskName: taskName,
         taskType: taskType,
         taskDate: taskDate,
+        taskDescription: taskDescription,
     })
     const tasksJson = JSON.stringify(tasks);
     localStorage.setItem('tasks', tasksJson);
@@ -37,6 +40,7 @@ function displayTasks() {
             <th scope="row">${index + 1}</th>
             <td>${task.taskName}</td>
             <td>${task.taskType}</td>
+            <td>${task.taskDescription}</td>
             <td>@${task.taskDate}</td>
         </tr>
         `   ; 
