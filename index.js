@@ -7,6 +7,10 @@ const tasksList = document.getElementById('taskList');
 const taskTable = document.getElementById('taskTable');
 console.log("taskTable", taskTable)
 
+const generateId = function () {   
+    return '_' + Math.random().toString(36).substr(2, 9);
+}; 
+
 formReminder.onsubmit = (event) => {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     event.preventDefault();
@@ -15,12 +19,13 @@ formReminder.onsubmit = (event) => {
     const taskDate = taskDateInput.value;
     const taskDescription = taskDescriptionInput.value;
 
-
     tasks.push({
         taskName: taskName,
         taskType: taskType,
         taskDate: taskDate,
         taskDescription: taskDescription,
+        id: generateId(),
+        createdAt: Date.now(),
     })
     const tasksJson = JSON.stringify(tasks);
     localStorage.setItem('tasks', tasksJson);
@@ -47,6 +52,5 @@ function displayTasks() {
         rows.push(tr);
     }
     taskTable.innerHTML = rows.join('');
-    console.log("displayTasks ->  rows.join('')",  rows.join(''))
 }
 
