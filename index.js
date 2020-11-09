@@ -27,7 +27,7 @@ formReminder.onsubmit = (event) => {
         taskTime: taskTime,
         taskDescription: taskDescription,
         id: generateId(),
-        createdAt: Date.now(),
+        createdAt: Date.now(),        
     })
     const tasksJson = JSON.stringify(tasks);
     localStorage.setItem('tasks', tasksJson);
@@ -41,7 +41,7 @@ function displayTasks() {
 
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
-
+        const createdAt = new Date(task.createdAt)
         const tr = `
                         <tr>
                             <th scope="row">${index + 1}</th>
@@ -55,6 +55,7 @@ function displayTasks() {
                                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal${task.id}">
                                     Mostrar
                                 </button>
+                                <button onclick="deleteTask('${task.id}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                 
                                 <!-- Modal -->
                                 <div class="modal fade" id="modal${task.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -68,9 +69,10 @@ function displayTasks() {
                                             </div>
                                             <div class="modal-body">
                                                 <p>Descripción: ${task.taskDescription}</p>
+                                                <p>Tipo de tarea: ${task.taskType}</p>
                                                 <p>Día a realizar: ${task.taskDate}</p>
                                                 <p>Horario: ${task.taskTime}</p>
-                                                <p>Tipo de tarea: ${task.taskType}</p>
+                                                <p>Tarea registrada el día: ${createdAt.toLocaleString()}</p>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -84,5 +86,18 @@ function displayTasks() {
         rows.push(tr);
     }
     taskTable.innerHTML = rows.join('');
+}
+
+function deleteTask(taskId) {
+    // Traer la lista de Tareas de localStorage.
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    // Eliminar un tarea, usando filter() para filtrar el tarea
+    // que coincide con el id recibido por parámetros.
+    const filteredTasks = tasks.filter((task) => task.id !== taskId);
+    // Guardar lista de tareas en localStorage.
+    const tasksJson = JSON.stringify(filteredTasks);
+    localStorage.setItem('tasks', tasksJson);
+    // Actualizar la tabla en el html llamando a la función displayTasks(). 
+    displayTasks();
 }
 
