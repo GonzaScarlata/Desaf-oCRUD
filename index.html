@@ -30,13 +30,14 @@
                 <label for="taskType">
                     Tipo de tarea
                 </label>
-                <input type="text" id="taskType" class="form-control" required>
+                <input type="text" id="taskType" class="form-control" maxlength="60" required>
             </div>
             <div class="form-group">
                 <label for="taskDescription">
                     Descripción
                 </label>
-                <textarea name="textarea" rows="5" id="taskDescription" class="w-100 form-control">Describa la tarea a realizar</textarea>
+                <textarea name="textarea" rows="5" id="taskDescription" class="w-100 form-control"
+                    maxlength="500">Describa la tarea a realizar</textarea>
             </div>
             <div class="form-group">
                 <label for="taskDate">
@@ -56,20 +57,23 @@
         </form>
     </div>
     <div class="container">
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Tarea</th>
-                    <th scope="col">Tipo de tarea</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Horario</th>
-                </tr>
-            </thead>
-            <tbody id="taskTable">
-            </tbody>
-        </table>
+        <div class="table-responsive-xs d-flex">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tarea</th>
+                        <th scope="col" class="col-md-auto">Tipo de tarea</th>
+                        <th scope="col" class="col-md-auto">Descripción</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Horario</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody id="taskTable">
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
