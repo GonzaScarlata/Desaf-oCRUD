@@ -49,7 +49,7 @@ const getModal = (task) => {
     if (lastUpdate !== '-') {
         lastUpdate = new Date(lastUpdate).toLocaleString();   
     }
-    
+
     return `    <!-- Button trigger modal -->
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal${task.id}">
                     Mostrar
@@ -66,8 +66,8 @@ const getModal = (task) => {
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Descripción: ${task.taskDescription}</p>
-                                <p>Tipo de tarea: ${task.taskType}</p>
+                                <div><p>Descripción: ${task.taskDescription}</p></div>
+                                <div><p>Tipo de tarea: ${task.taskType}</p></div>
                                 <p>Día a realizar: ${task.taskDate}</p>
                                 <p>Horario: ${task.taskTime}</p>
                                 <p>Tarea registrada el día: ${createdAt.toLocaleString()}</p>
@@ -118,6 +118,7 @@ function displayTasks(tasks) {
         rows.push(tr);
     }
     taskTable.innerHTML = rows.join('');
+    $('#firstModal').modal('hide');
 }
 
 function displayAllTasks() {

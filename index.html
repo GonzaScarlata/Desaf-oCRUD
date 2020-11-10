@@ -12,53 +12,88 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
         integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
         crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="style.css">
     <title>CRUD!</title>
 </head>
 
 <body>
-
+    <header class="jumbotron jumbotron-fluid header" id="1">
+        <div class="container header2">
+            <h1 class="display-1"><strong>Bloc de tareas y notas</strong></h1>
+            <p class="lead alternativeTitle">
+                Una simple aplicación de recordatorios!
+            </p>
+        </div>
+    </header>
     <div class="container">
-        <form class="m-5" id="formReminder">
-            <div class="form-group">
-                <label for="taskName">
-                    Tarea
-                </label>
-                <input type="text" id="taskName" class="form-control" required>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#firstModal">
+            Agregar notas o tareas
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="firstModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Agregar Tarea</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="m-5" id="formReminder">
+                            <div class="form-group">
+                                <label for="taskName">
+                                    Tarea
+                                </label>
+                                <input type="text" id="taskName" class="form-control" maxlength="60" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskType">
+                                    Tipo de tarea
+                                </label>
+                                <input type="text" id="taskType" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDescription">
+                                    Descripción
+                                </label>
+                                <textarea name="textarea" rows="5" id="taskDescription" class="w-100 form-control"
+                                    placeholder="Describa la tarea a realizar" maxlength="500"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDate">
+                                    Fecha a recordar
+                                </label>
+                                <input type="date" id="taskDate" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDate">
+                                    Horario
+                                </label>
+                                <input type="time" id="taskTime" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Agregar
+                            </button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="taskType">
-                    Tipo de tarea
-                </label>
-                <input type="text" id="taskType" class="form-control" maxlength="60" required>
-            </div>
-            <div class="form-group">
-                <label for="taskDescription">
-                    Descripción
-                </label>
-                <textarea name="textarea" rows="5" id="taskDescription" class="w-100 form-control" placeholder="Describa la tarea a realizar" maxlength="500"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="taskDate">
-                    Fecha a recordar
-                </label>
-                <input type="date" id="taskDate" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="taskDate">
-                    Horario
-                </label>
-                <input type="time" id="taskTime" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">
-                Agregar
-            </button>
-        </form>
+        </div>
+
+
     </div>
     <div class="container">
         <div class="">
             <form id="searchForm" class="d-flex align-items-center">
-                <input type="search" id="search" placeholder="Ingrese su búsqueda" style="width: 300px;" class="form-control"></input>
+                <input type="search" id="search" placeholder="Ingrese su búsqueda" style="width: 300px;"
+                    class="form-control"></input>
                 <button type="submit" class="btn btn-outline-info m-2">
                     <i class="fab fa-searchengin "></i>
                 </button>
@@ -101,7 +136,7 @@
                             <label for="taskType">
                                 Tipo de tarea
                             </label>
-                            <input type="text" id="taskTypeModal" class="form-control" maxlength="60" required>
+                            <input type="text" id="taskTypeModal" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="taskDescription">
