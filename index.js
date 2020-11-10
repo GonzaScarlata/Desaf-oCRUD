@@ -12,6 +12,8 @@ const taskDateModalInput = document.getElementById('taskDateModal');
 const taskTimeModalInput = document.getElementById('taskTimeModal');
 const formEdit = document.getElementById('formEdit');
 let editTaskId = '';
+const search = document.getElementById('search');
+const searchForm = document.getElementById('searchForm');
 
 const generateId = function () {
     return '_' + Math.random().toString(36).substr(2, 9);
@@ -84,8 +86,8 @@ const loadForm = (taskId) => {
     editTaskId = taskId;
 }
 
-function displayTasks() {
-    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+function displayTasks(tasks) {
+    
     const rows = [];
 
     for (let index = 0; index < tasks.length; index++) {
@@ -111,7 +113,14 @@ function displayTasks() {
     }
     taskTable.innerHTML = rows.join('');
 }
-displayTasks();
+
+function displayAllTasks() {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+    displayTasks(tasks);
+}
+
+displayAllTasks();
 
 function deleteTask(taskId) {
     // Traer la lista de Tareas de localStorage.
@@ -154,4 +163,15 @@ formEdit.onsubmit = (e) => {
     formEdit.reset();
     displayTasks();
     $('#editModal').modal('hide');
+}
+
+searchForm.onsubmit = (e) => {
+    e.preventDefault();
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const term = search.value;
+    const filteredTasks = tasks.filter(t => (t.taskName.toLowerCase().includes(term.toLowerCase())
+     || t.taskType.toLowerCase().includes(term.toLowerCase())
+    ))
+
+    displayTasks(filteredTasks);
 }
