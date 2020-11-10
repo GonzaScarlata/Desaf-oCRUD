@@ -40,11 +40,16 @@ formReminder.onsubmit = (event) => {
     const tasksJson = JSON.stringify(tasks);
     localStorage.setItem('tasks', tasksJson);
     formReminder.reset();
-    displayTasks();
+    displayAllTasks()
 }
 
 const getModal = (task) => {
-    const createdAt = new Date(task.createdAt)
+    const createdAt = new Date(task.createdAt);
+    let lastUpdate = (task.lastUpdate) || '-';
+    if (lastUpdate !== '-') {
+        lastUpdate = new Date(lastUpdate).toLocaleString();   
+    }
+    
     return `    <!-- Button trigger modal -->
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal${task.id}">
                     Mostrar
@@ -66,6 +71,7 @@ const getModal = (task) => {
                                 <p>Día a realizar: ${task.taskDate}</p>
                                 <p>Horario: ${task.taskTime}</p>
                                 <p>Tarea registrada el día: ${createdAt.toLocaleString()}</p>
+                                <p>Última modificación: ${lastUpdate}</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -132,7 +138,7 @@ function deleteTask(taskId) {
     const tasksJson = JSON.stringify(filteredTasks);
     localStorage.setItem('tasks', tasksJson);
     // Actualizar la tabla en el html llamando a la función displayTasks(). 
-    displayTasks();
+    displayAllTasks();
 }
 
 formEdit.onsubmit = (e) => {
@@ -151,6 +157,7 @@ formEdit.onsubmit = (e) => {
                 taskDate: taskDate,
                 taskTime: taskTime,
                 taskDescription: taskDescription,
+                lastUpdate: Date.now(),
             }
             return task
         } else {
@@ -161,7 +168,7 @@ formEdit.onsubmit = (e) => {
     localStorage.setItem('tasks', tasksJson);
     // Actualizar la tabla en el html llamando a la función displayTasks().
     formEdit.reset();
-    displayTasks();
+    displayAllTasks();
     $('#editModal').modal('hide');
 }
 
