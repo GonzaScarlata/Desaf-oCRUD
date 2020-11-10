@@ -6,6 +6,12 @@ const taskDateInput = document.getElementById('taskDate');
 const taskTimeInput = document.getElementById('taskTime');
 const tasksList = document.getElementById('taskList');
 const taskTable = document.getElementById('taskTable');
+const taskTypeModalInput = document.getElementById('taskTypeModal');
+const taskDescriptionModalInput = document.getElementById('taskDescriptionModal');
+const taskDateModalInput = document.getElementById('taskDateModal');
+const taskTimeModalInput = document.getElementById('taskTimeModal');
+const formEdit = document.getElementById('formEdit');
+let editTaskId = '';
 
 const generateId = function () {
     return '_' + Math.random().toString(36).substr(2, 9);
@@ -27,7 +33,7 @@ formReminder.onsubmit = (event) => {
         taskTime: taskTime,
         taskDescription: taskDescription,
         id: generateId(),
-        createdAt: Date.now(),        
+        createdAt: Date.now(),
     })
     const tasksJson = JSON.stringify(tasks);
     localStorage.setItem('tasks', tasksJson);
@@ -35,7 +41,7 @@ formReminder.onsubmit = (event) => {
     displayTasks();
 }
 
-const getModal = (task) => { 
+const getModal = (task) => {
     const createdAt = new Date(task.createdAt)
     return `    <!-- Button trigger modal -->
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal${task.id}">
@@ -68,23 +74,35 @@ const getModal = (task) => {
             `
 }
 
+const loadForm = (taskId) => {
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const task = tasks.find((t) => t.id == taskId);
+    taskTypeModalInput.value = task.taskType;
+    taskDescriptionModalInput.value = task.taskDescription;
+    taskDateModalInput.value = task.taskDate;
+    taskTimeModalInput.value = task.taskTime;
+    editTaskId = taskId;
+}
+
 function displayTasks() {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     const rows = [];
 
     for (let index = 0; index < tasks.length; index++) {
         const task = tasks[index];
-       
-        const tr =  `
+
+        const tr = `
                         <tr class = "w-100">
                             <th scope="row">${index + 1}</th>
                             <td>${task.taskName}</td>
                             <td>${task.taskType}</td>
-                            <td>${task.taskDescription}</td>
                             <td>${task.taskDate}</td>
                             <td>${task.taskTime}</td>
                             <td>
                                 ${getModal(task)}
+                                <!-- Button trigger modal -->
+                                <!-- Button trigger modal edit -->
+                                <button type="button" class="btn btn-warning text-white" data-toggle="modal" data-target="#editModal" onclick="loadForm('${task.id}')"><i class="far fa-edit"></i></button>
                                 <button onclick="deleteTask('${task.id}')" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                             </td>
                         </tr>
@@ -93,6 +111,7 @@ function displayTasks() {
     }
     taskTable.innerHTML = rows.join('');
 }
+displayTasks();
 
 function deleteTask(taskId) {
     // Traer la lista de Tareas de localStorage.
@@ -107,3 +126,32 @@ function deleteTask(taskId) {
     displayTasks();
 }
 
+formEdit.onsubmit = (e) => {
+    e.preventDefault()
+    const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const taskType = taskTypeModalInput.value;
+    const taskDate = taskDateModalInput.value;
+    const taskTime = taskTimeModalInput.value;
+    const taskDescription = taskDescriptionModalInput.value;
+    const updatedTasks = tasks.map((t) => {
+    
+        if (t.id == editTaskId) {
+            const task = {
+                ... t,
+                taskType: taskType,
+                taskDate: taskDate,
+                taskTime: taskTime,
+                taskDescription: taskDescription,
+            }
+            return task
+        } else {
+            return t;
+        }
+    })
+    const tasksJson = JSON.stringify(updatedTasks);
+    localStorage.setItem('tasks', tasksJson);
+    // Actualizar la tabla en el html llamando a la función displayTasks().
+    formEdit.reset();
+    displayTasks();
+    $('#editModal').modal('hide');
+}
